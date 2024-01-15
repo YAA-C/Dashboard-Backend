@@ -6,6 +6,8 @@ import { userModel } from "../models/userModel.js";
 // API key generation library
 import { generateApiKey } from "generate-api-key";
 
+import {secret} from "../../index.js";
+
 const userRouter = express.Router();
 
 // creating a user with Username and password ONLY
@@ -56,7 +58,7 @@ userRouter.post("/login", async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user._id }, "secret");
+    const token = jwt.sign({ id: user._id }, secret);
 
     return res.status(200).json({ token, userId: user._id, success: true });
   } catch (error) {
