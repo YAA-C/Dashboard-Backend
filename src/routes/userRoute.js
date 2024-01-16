@@ -6,7 +6,7 @@ import { userModel } from "../models/userModel.js";
 // API key generation library
 import { generateApiKey } from "generate-api-key";
 
-import {secret} from "../../index.js";
+import { secret } from "../../index.js";
 
 const userRouter = express.Router();
 
@@ -70,52 +70,51 @@ userRouter.post("/login", async (req, res) => {
 });
 
 userRouter.patch("/createApiKey", async (req, res) => {
-    try {
-      const { id } = req.body;
-  
-      let newApiKey;
-      let isApiKeyUnique = false;
-      let count=0;
-  
-      // Generate a unique API key
-      while (!isApiKeyUnique && count<3) {
-        newApiKey = generateApiKey();
-        const existingUser = await userModel.findOne({ apikey: newApiKey });
-  
-        // If the generated API key doesn't exist in the database, set isApiKeyUnique to true
-        if (!existingUser) {
-          isApiKeyUnique = true;
-        }
-        count++;
+  try {
+    const { id } = req.body;
+
+    let newApiKey;
+    let isApiKeyUnique = false;
+    let count = 0;
+
+    // Generate a unique API key
+    while (!isApiKeyUnique && count < 3) {
+      newApiKey = generateApiKey();
+      const existingUser = await userModel.findOne({ apikey: newApiKey });
+
+      // If the generated API key doesn't exist in the database, set isApiKeyUnique to true
+      if (!existingUser) {
+        isApiKeyUnique = true;
       }
-  
-      // Update the user's API key
-      const updatedUser = await userModel.findByIdAndUpdate(
-        id,
-        { $set: { apikey: newApiKey } },
-        { new: true }
-      );
-  
-      if (!updatedUser) {
-        return res.status(404).json({
-          message: "User not found.",
-          success: false,
-        });
-      }
-  
-      return res.status(200).json({
-        message: "API key updated successfully.",
-        newApiKey: updatedUser.apikey,
-        success: true,
-      });
-    } catch (error) {
-      console.error("Error during API key update:", error);
-      return res.status(500).json({
-        message: "Internal Server Error",
+      count++;
+    }
+
+    // Update the user's API key
+    const updatedUser = await userModel.findByIdAndUpdate(
+      id,
+      { $set: { apikey: newApiKey } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: "User not found.",
         success: false,
       });
     }
-  });
 
+    return res.status(200).json({
+      message: "API key updated successfully.",
+      newApiKey: updatedUser.apikey,
+      success: true,
+    });
+  } catch (error) {
+    console.error("Error during API key update:", error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+});
 
 export { userRouter };
