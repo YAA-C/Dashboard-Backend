@@ -11,6 +11,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const mongoDB_LINK = process.env.mongoDB_LINK;
 const PORT = process.env.PORT || 3001;
+export const secret = process.env.secret;
 
 // Routes
 import { userRouter } from "./src/routes/userRoute.js";
