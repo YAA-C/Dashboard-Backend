@@ -10,6 +10,41 @@ import { secret } from "../../index.js";
 
 const userRouter = express.Router();
 
+userRouter.post("/getUser", async (req, res) => {
+  try {
+    const { id } = req.body;
+    
+    if (!id) {
+      return res.status(400).json({
+        message: "Bad Request. Please provide a valid user ID.",
+        success: false,
+      });
+    }
+
+    const user = await userModel.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "User retrieved successfully.",
+      user,
+      success: true,
+    });
+  } catch (error) {
+    console.error("Error during user retrieval:", error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+});
+
+
 // creating a user with Username and password ONLY
 userRouter.post("/createUser", async (req, res) => {
   try {
