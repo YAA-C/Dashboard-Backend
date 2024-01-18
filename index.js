@@ -15,9 +15,11 @@ export const secret = process.env.secret;
 
 // Routes
 import { userRouter } from "./src/routes/userRoute.js";
+import { mongoCsvRouter } from "./src/routes/mongoCsvRoute.js";
 
 // APIs
 app.use("/user", userRouter);
+app.use("/mongoCsv", mongoCsvRouter);
 
 // Database Connection
 mongoose
