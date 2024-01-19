@@ -16,10 +16,12 @@ export const secret = process.env.secret;
 // Routes
 import { userRouter } from "./src/routes/userRoute.js";
 import { mongoCsvRouter } from "./src/routes/mongoCsvRoute.js";
+import { tebiRouter } from "./src/routes/tebiCsvRoute.js";
 
 // APIs
 app.use("/user", userRouter);
 app.use("/mongoCsv", mongoCsvRouter);
+app.use("/tebi",tebiRouter)
 
 // Database Connection
 mongoose
