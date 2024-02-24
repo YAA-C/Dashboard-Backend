@@ -37,6 +37,15 @@ const matchesSchema = new mongoose.Schema(
           type: [Number],
           required: true,
         },
+      },No_4: {
+        labels: {
+          type: [String],
+          required: true,
+        },
+        data: {
+          type: [Number],
+          required: true,
+        },
       },
       No_5: {
         weapon_category_ar: {
@@ -271,7 +280,7 @@ const matchesSchema = new mongoose.Schema(
     },
     players: [
       {
-        _id: {
+        steamid: {
           type: String,
           required: true,
         },
