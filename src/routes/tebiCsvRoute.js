@@ -1,6 +1,8 @@
 import express from "express";
 import multer from "multer";
-import { PutObjectCommand ,GetObjectCommand} from "@aws-sdk/client-s3";
+import crypto from "crypto";
+
+import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3Client } from "../tebi/s3Config.js";
 
@@ -9,17 +11,25 @@ const tebiRouter = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-import {csvTebiModel} from "../models/csvTebi.js";
+import { csvTebiModel } from "../models/csvTebi.js";
 
-tebiRouter.post("/upload", upload.single("csv"), async (req, res) => {
+const generateRandomString = (length) => {
+  return crypto
+    .randomBytes(Math.ceil(length / 2))
+    .toString("hex")
+    .slice(0, length);
+};
+
+tebiRouter.post("/upload", upload.single("csvFile"), async (req, res) => {
   try {
     const file = req.file;
+    const fileKey = `${generateRandomString(64)}.csv`;
 
     // Upload file to Tebi Object Storage
     const upload_data = await s3Client.send(
       new PutObjectCommand({
         Bucket: "yaacs",
-        Key: file.originalname,
+        Key: fileKey,
         Body: file.buffer,
         ContentType: file.mimetype,
       })
@@ -27,7 +37,7 @@ tebiRouter.post("/upload", upload.single("csv"), async (req, res) => {
 
     // Save file metadata to MongoDB
     const newCsv = new csvTebiModel({
-      filename: file.originalname,
+      filename: fileKey,
       originalname: file.originalname,
       contentType: file.mimetype,
       size: file.size,
@@ -59,7 +69,7 @@ tebiRouter.get("/latest", async (req, res) => {
 
     // Generate a presigned URL for the latest file
     const get_command = new GetObjectCommand({
-      Bucket: "yaacs", 
+      Bucket: "yaacs",
       Key: latestCsv.filename,
     });
 
