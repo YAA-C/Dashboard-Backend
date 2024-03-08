@@ -8,266 +8,135 @@ const matchesSchema = new mongoose.Schema(
       required: true,
     },
     charts: {
-      No_1: {
-        labels: {
-          type: [String],
-          required: true,
-        },
-        data: {
-          type: [Number],
-          required: true,
-        },
+      Q1_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bars",
+        required: true,
       },
-      No_2: {
-        labels: {
-          type: [String],
-          required: true,
-        },
-        data: {
-          type: [Number],
-          required: true,
-        },
+      Q2_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bars",
+        required: true,
       },
-      No_3: {
-        labels: {
-          type: [String],
-          required: true,
-        },
-        data: {
-          type: [Number],
-          required: true,
-        },
-      },No_4: {
-        labels: {
-          type: [String],
-          required: true,
-        },
-        data: {
-          type: [Number],
-          required: true,
-        },
+      Q3_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "pies",
+        required: true,
+      },
+      Q4_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bars",
+        required: true,
       },
       No_5: {
         weapon_category_ar: {
-          weapon_ak47: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_ak47_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_famas: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_famas_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_galilar: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_galilar_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_m4a1: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_m4a1_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_m4a1_silencer: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_m4a1_silencer_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
         },
         weapon_category_pistol: {
-          weapon_deagle: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_deagle_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_elite: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_elite_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_fiveseven: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_fiveseven_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_glock: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_glock_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_p250: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_p250_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_tec9: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_tec9_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_usp_silencer: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_usp_silencer_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
         },
         weapon_category_smg: {
-          weapon_mac10: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_mac10_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
-          weapon_mp9: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
+          weapon_mp9_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
+            required: true,
           },
         },
         weapon_category_sniper: {
-          weapon_awp: {
-            labels: {
-              type: [String],
-              required: true,
-            },
-            data: {
-              type: [Number],
-              required: true,
-            },
-          },
-        },
-      },
-      No_6: {
-        labels: {
-          type: [String],
-          required: true,
-        },
-        data: {
-          type: [Number],
-          required: true,
-        },
-      },
-      No_7: {
-        histData: {
-          type: [Number],
-          required: true,
-        },
-        edges: {
-          type: [Number],
-          required: true,
-        },
-      },
-      No_8: {
-        labels: {
-          type: [String],
-          required: true,
-        },
-        data: {
-          type: [Number],
-          required: true,
-        },
-      },
-      No_9: {
-        sniper: {
-          labels: {
-            type: [String],
-            required: true,
-          },
-          data: {
-            type: [Number],
-            required: true,
-          },
-        },
-        scopingAR: {
-          labels: {
-            type: [String],
-            required: true,
-          },
-          data: {
-            type: [Number],
+          weapon_awp_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "pies",
             required: true,
           },
         },
       },
-      No_10: {
-        labels: {
-          type: [String],
-          required: true,
-        },
-        data: {
-          type: [Number],
-          required: true,
-        },
+      Q6_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bars",
+        required: true,
+      },
+      Q7_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "hists",
+        required: true,
+      },
+      Q8_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bars",
+        required: true,
+      },
+      Q9_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "nines",
+        required: true,
+      },
+      Q10_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bars",
+        required: true,
       },
     },
     is_Analyzed: {
