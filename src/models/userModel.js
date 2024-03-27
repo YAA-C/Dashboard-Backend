@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema(
     apikey: {
       type: String,
       default: "",
+      index: true,
     },
   },
   {
