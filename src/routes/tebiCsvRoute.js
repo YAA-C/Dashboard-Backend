@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import { PutObjectCommand ,GetObjectCommand} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { s3Client } from "../tebi/s3Config.js";
+import { s3Client } from "../configs/s3ConfigTebi.js";
 
 const tebiRouter = express.Router();
 
@@ -11,7 +11,7 @@ const upload = multer({ storage: storage });
 
 import {csvTebiModel} from "../models/csvTebi.js";
 
-tebiRouter.post("/upload", upload.single("csv"), async (req, res) => {
+tebiRouter.post("/upload", upload.single("csvFile"), async (req, res) => {
   try {
     const file = req.file;
 

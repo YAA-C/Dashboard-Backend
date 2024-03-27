@@ -1,5 +1,23 @@
 import mongoose from "mongoose";
 
+const pieSchema = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "piecharts",
+  default: null,
+};
+
+const barSchema = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "barcharts",
+  default: null,
+};
+
+const histSchema = {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "histograms",
+  default: null,
+};
+
 const matchesSchema = new mongoose.Schema(
   {
     account_id: {
@@ -8,143 +26,65 @@ const matchesSchema = new mongoose.Schema(
       required: true,
     },
     charts: {
-      report_1: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "barcharts",
-        required: true,
-      },
-      report_2: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "barcharts",
-        required: true,
-      },
-      report_3: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "piecharts",
-        required: true,
-      },
-      report_4: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "piecharts",
-        required: true,
-      },
+      report_1: barSchema,
+      report_2: barSchema,
+      report_3: pieSchema,
+      report_4: pieSchema,
       report_5: {
         weapon_category_ar: {
-          weapon_ak47: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_famas: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_galilar: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_m4a1: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_m4a1_silencer: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-        },
-        weapon_category_pistol: {
-          weapon_deagle: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_elite: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_fiveseven: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_glock: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_p250: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_tec9: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_usp_silencer: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
+          weapon_ak47: pieSchema,
+          weapon_aug: pieSchema,
+          weapon_famas: pieSchema,
+          weapon_galilar: pieSchema,
+          weapon_m4a1_silencer: pieSchema,
+          weapon_m4a1: pieSchema,
+          weapon_sg556: pieSchema,
         },
         weapon_category_smg: {
-          weapon_mac10: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
-          weapon_mp9: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
+          weapon_bizon: pieSchema,
+          weapon_mac10: pieSchema,
+          weapon_mp5sd: pieSchema,
+          weapon_mp7: pieSchema,
+          weapon_mp9: pieSchema,
+          weapon_ump45: pieSchema,
+          weapon_p90: pieSchema,
         },
         weapon_category_sniper: {
-          weapon_awp: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-          },
+          weapon_awp: pieSchema,
+          weapon_ssg08: pieSchema,
+          weapon_g3sg1: pieSchema,
+          weapon_scar20: pieSchema,
+        },
+        weapon_category_lmg: {
+          weapon_m249: pieSchema,
+          weapon_negev: pieSchema,
+        },
+        weapon_category_pistol: {
+          weapon_deagle: pieSchema,
+          weapon_elite: pieSchema,
+          weapon_fiveseven: pieSchema,
+          weapon_glock: pieSchema,
+          weapon_hkp2000: pieSchema,
+          weapon_usp_silencer: pieSchema,
+          weapon_cz75a: pieSchema,
+          weapon_p250: pieSchema,
+          weapon_tec9: pieSchema,
+        },
+        weapon_category_shotgun: {
+          weapon_mag7: pieSchema,
+          weapon_nova: pieSchema,
+          weapon_xm1014: pieSchema,
+          weapon_sawedoff: pieSchema,
         },
       },
-      report_6: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "piecharts",
-        required: true,
-      },
-      report_7: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "histograms",
-        required: true,
-      },
-      report_8: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "barcharts",
-        required: true,
-      },
+      report_6: pieSchema,
+      report_7: histSchema,
+      report_8: barSchema,
       report_9: {
-        weapon_ar: {
-          type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-        },
-        weapon_sniper: {
-          type: mongoose.Schema.Types.ObjectId,
-            ref: "piecharts",
-            required: true,
-        }
+        weapon_ar: pieSchema,
+        weapon_sniper: pieSchema,
       },
-      report_10: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "piecharts",
-        required: true,
-      },
+      report_10: pieSchema,
     },
     is_Analyzed: {
       type: Boolean,
@@ -158,11 +98,9 @@ const matchesSchema = new mongoose.Schema(
       {
         steamid: {
           type: String,
-          required: true,
         },
         playerName: {
           type: String,
-          required: true,
         },
         isCheating: {
           type: Boolean,

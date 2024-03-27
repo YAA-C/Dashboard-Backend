@@ -18,12 +18,14 @@ import { userRouter } from "./src/routes/userRoute.js";
 import { mongoCsvRouter } from "./src/routes/mongoCsvRoute.js";
 import { tebiRouter } from "./src/routes/tebiCsvRoute.js";
 import { dashboardRouter } from "./src/routes/dashboardRoute.js";
+import {matchesRouter} from "./src/routes/matchesRoute.js";
 
 // APIs
 app.use("/user", userRouter);
 app.use("/mongoCsv", mongoCsvRouter);
 app.use("/tebi", tebiRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/matches",matchesRouter);
 
 // Database Connection
 mongoose
