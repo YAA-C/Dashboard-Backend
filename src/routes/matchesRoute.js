@@ -1,19 +1,27 @@
 import express from "express";
 import multer from "multer";
 
-import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "../configs/s3ConfigTebi.js";
 
 import { userModel } from "../models/userModel.js";
 import { matchesModel } from "../models/matches.js";
+
+import dotenv from "dotenv";
+dotenv.config();
+
+const TEBI_uri = process.env.TEBI_uri;
+const TEBI_bucket = process.env.TEBI_bucket;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 export const matchesRouter = express.Router();
 
-matchesRouter.post("/create/:apikey",upload.single("csvFile"),async (req, res) => {
+matchesRouter.post(
+  "/create/:apikey",
+  upload.single("csvFile"),
+  async (req, res) => {
     try {
       const file = req.file;
       const { apikey } = req.params;
@@ -36,14 +44,7 @@ matchesRouter.post("/create/:apikey",upload.single("csvFile"),async (req, res) =
         })
       );
 
-      const get_command = new GetObjectCommand({
-        Bucket: "yaacs",
-        Key: file.originalname,
-      });
-
-      const url = await getSignedUrl(s3Client, get_command, {
-        expiresIn: 3600,
-      });
+      const url = `${TEBI_uri}/${TEBI_bucket}/${file.originalname}`;
 
       const matchData = {
         account_id: user._id,
