@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import crypto from "crypto";
 
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "../configs/s3ConfigTebi.js";
@@ -15,6 +16,13 @@ const TEBI_bucket = process.env.TEBI_bucket;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+const generateRandomString = (length) => {
+  return crypto
+    .randomBytes(Math.ceil(length / 2))
+    .toString("hex")
+    .slice(0, length);
+};
 
 export const matchesRouter = express.Router();
 
@@ -35,16 +43,18 @@ matchesRouter.post(
         });
       }
 
+      const fileKey= generateRandomString(64);
+
       const upload_data = await s3Client.send(
         new PutObjectCommand({
-          Bucket: "yaacs",
-          Key: file.originalname,
+          Bucket: TEBI_bucket,
+          Key: fileKey,
           Body: file.buffer,
           ContentType: file.mimetype,
         })
       );
 
-      const url = `${TEBI_uri}/${TEBI_bucket}/${file.originalname}`;
+      const url = `${TEBI_uri}/${TEBI_bucket}/${fileKey}`;
 
       const matchData = {
         account_id: user._id,
