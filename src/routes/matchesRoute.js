@@ -8,6 +8,8 @@ import { s3Client } from "../configs/s3ConfigTebi.js";
 import { userModel } from "../models/userModel.js";
 import { matchesModel } from "../models/matches.js";
 
+import connector from "../../connector.js";
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -65,6 +67,10 @@ matchesRouter.post(
         .create(matchData)
         .then((savedDocument) => {
           console.log("Document saved successfully:", savedDocument._id);
+          connector.sendData({
+            "url": url,
+            "match_id": savedDocument._id
+          });
         })
         .catch((error) => {
           console.error("Error saving document:", error);

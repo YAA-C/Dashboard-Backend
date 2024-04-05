@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import connector from "./connector.js"
 
 const app = express();
 app.use(express.json());
@@ -35,8 +36,16 @@ mongoose
   .then(() => {
     console.log("DB connected 🌟");
 
-    app.listen(PORT, () => {
-      console.log("OUR SERVER IS RUNNING 🚀");
+    connector.connectRabbit().then(() => {
+      console.log("Connected to RabbitMQ 🔥");
+      
+      app.listen(PORT, () => {
+        console.log("OUR SERVER IS RUNNING 🚀");
+        console.log(`http://localhost:${PORT}`);
+      });
+    }).catch((error) => {
+        console.log("RabbitMQ Connection Failed !!");
+        console.log(error);
     });
   })
   .catch((error) => {
