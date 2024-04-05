@@ -36,7 +36,7 @@ class RabbitMQConnector {
     
 
     async sendData(data) {
-        this.confirmChannel.publish("work_exchange", "", JSON.stringify(data), {persistent: false}, () => {
+        this.confirmChannel.publish("work_exchange", "", Buffer.from(JSON.stringify(data)), {persistent: false}, () => {
             console.log("Job pushed to Queue.")
         });
     }
