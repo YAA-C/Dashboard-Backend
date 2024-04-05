@@ -20,3 +20,20 @@ dashboardRouter.post("/getMatches", async (req, res) => {
     console.log(err);
   }
 });
+
+dashboardRouter.post("/", async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const found = await matchesModel.find({ account_id: id });
+
+    if (found.length !== 0) {
+      res.json({ success: true, found });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (err) {
+    res.json({ Error: err });
+    console.log(err);
+  }
+});
