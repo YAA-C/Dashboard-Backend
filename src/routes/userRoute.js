@@ -13,7 +13,7 @@ const userRouter = express.Router();
 userRouter.post("/getUser", async (req, res) => {
   try {
     const { id } = req.body;
-    
+
     if (!id) {
       return res.status(400).json({
         message: "Bad Request. Please provide a valid user ID.",
@@ -43,7 +43,6 @@ userRouter.post("/getUser", async (req, res) => {
     });
   }
 });
-
 
 // creating a user with Username and password ONLY
 userRouter.post("/createUser", async (req, res) => {
@@ -153,3 +152,4 @@ userRouter.patch("/createApiKey", async (req, res) => {
 });
 
 export { userRouter };
+

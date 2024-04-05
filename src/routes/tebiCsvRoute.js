@@ -1,24 +1,29 @@
 import express from "express";
 import multer from "multer";
-import { PutObjectCommand ,GetObjectCommand} from "@aws-sdk/client-s3";
+import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { s3Client } from "../tebi/s3Config.js";
+import { s3Client } from "../configs/s3ConfigTebi.js";
 
 const tebiRouter = express.Router();
+
+import dotenv from "dotenv";
+dotenv.config();
+
+const TEBI_bucket = process.env.TEBI_bucket;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-import {csvTebiModel} from "../models/csvTebi.js";
+import { csvTebiModel } from "../models/csvTebi.js";
 
-tebiRouter.post("/upload", upload.single("csv"), async (req, res) => {
+tebiRouter.post("/upload", upload.single("csvFile"), async (req, res) => {
   try {
     const file = req.file;
 
     // Upload file to Tebi Object Storage
     const upload_data = await s3Client.send(
       new PutObjectCommand({
-        Bucket: "yaacs",
+        Bucket: TEBI_bucket,
         Key: file.originalname,
         Body: file.buffer,
         ContentType: file.mimetype,
@@ -59,7 +64,7 @@ tebiRouter.get("/latest", async (req, res) => {
 
     // Generate a presigned URL for the latest file
     const get_command = new GetObjectCommand({
-      Bucket: "yaacs", 
+      Bucket: TEBI_bucket,
       Key: latestCsv.filename,
     });
 
