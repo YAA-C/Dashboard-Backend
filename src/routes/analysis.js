@@ -5,6 +5,17 @@ import { barModel, pieModel, histModel } from "../models/charts.js";
 
 export const analysisRouter = express.Router();
 
+analysisRouter.post("/getPlayers", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const player = await matchesModel.findById(id);
+    res.json({ success: true, player});
+  } catch (err) {
+    res.json({ Error: err });
+    console.log(err);
+  }
+});
+
 analysisRouter.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -172,7 +183,7 @@ analysisRouter.get("/:id", async (req, res) => {
       r8Data,
       r9Data,
       r10Data,
-    }
+    };
 
     res.json({ success: true, chartsData });
   } catch (err) {
