@@ -13,7 +13,7 @@ class RabbitMQConnector {
     async connectRabbit() {
         try {
             this.connection = await amqp.connect("amqp://localhost");  
-                //   amqp://192.168.0.100:5672
+                //   amqp://192.168.164.147:5672
         }
         catch (err) {
             console.log("Problem creating connection to RabbitMq");
